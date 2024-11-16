@@ -1,0 +1,7 @@
+[
+  {
+    "directory": "/Users/ariel/Projects/Pet/cpp/randomart/",
+    "arguments": ["clnang++", "-Wall", "-std=c++17", "main.cpp", "-o", "main"],
+    "file": "main.cpp"
+  }
+]
