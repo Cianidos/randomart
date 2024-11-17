@@ -6,6 +6,11 @@ Now it's a one-evening implementation.
 
 A further optimized version will be added.
 Also, shader generation, live update GUI with Time parameter will be added.
+## Requirements
+
+C++ std20 compatible compiler.
+Tested with clang on macOS.
+To use other compilers, modify `build/build.cpp`.
 
 ## Quick start
 
