@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
     return 0;
   }
 
-  std::system("clang++ -g -O0 -Wall -std=c++17 ../main.cpp -o ../main");
+  std::system("clang++ -O0 -Wall -std=c++20 ../main.cpp -o ../main");
   std::system("./../main");
   return 0;
 }
