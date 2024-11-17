@@ -39,3 +39,7 @@ Download and check it yourself.
 - [Image 3](build/output/1731845961.ppm)
 - [Image 4](build/output/1731845968.ppm)
 - [Image 5](build/output/1731846570.ppm)
+
+
+## Known issues
+Compilation with `-O1/2/3` flags corrupts randomness somehow.
