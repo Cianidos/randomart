@@ -9,7 +9,7 @@ Also, shader generation, live update GUI with Time parameter will be added.
 
 ## Quick start
 
-Open 'build/' dirrectory.
+Open `build/` dirrectory.
 
 First build:
 
