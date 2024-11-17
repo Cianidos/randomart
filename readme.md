@@ -2,9 +2,10 @@
 
 Inspired by <https://github.com/tsoding/randomart>
 
-Now base one, one evening, version are presented.
+Now it's a one-evening implementation.
 
-Further more optimized version will be added.
+A further optimized version will be added.
+Also, shader generation, live update GUI with Time parameter will be added.
 
 ## Quick start
 
@@ -24,7 +25,7 @@ Further run with simple:
 
 ## Examples 
 
-Choosen ppm format is raw, images are large, and github don't know how to render it.
+Chosen ppm format is raw, images are large, and GitHub doesn’t know how to render it.
 
 Download and check it yourself.
 
