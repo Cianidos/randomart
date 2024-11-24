@@ -16,7 +16,8 @@
 
 // utill function
 auto rand_double() -> double {
-  return static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX);
+  return static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX / 2) -
+         1.0;
 }
 
 enum struct op_kind : int8_t {
@@ -144,35 +145,35 @@ union four_bytes {
 };
 
 auto generate_expression() -> std::pair<std::vector<int8_t>, int> {
-  constexpr int weights[op_kind_count] = {0, 1, 1, 1, 0, 0, 1, 1, 1};
+  constexpr int weights[op_kind_count] = {0, 36, 0, 36, 0, 0, 18, 18, 18};
   constexpr auto weights_prefix = [&]() {
     std::array<int, op_kind_count> tmp = {};
     std::partial_sum(weights, weights + op_kind_count, tmp.begin());
     return tmp;
   }();
-  for (auto v : weights_prefix) {
-    std::cout << v << " ";
-  }
 
-  std::cout << weights_prefix.back() << " ";
-  auto take_random_kind = [&]() {
-    int rnd = std::rand() % weights_prefix.back();
+  auto take_random_kind = [&](int iteration) {
+    int rnd = (std::rand() % weights_prefix.back()) *
+              (((iteration > 1000) << 10) + 1); // branchless
+                                                // if iteration > 1000
+                                                // rnd *= 1025
     for (int i = 0; i < op_kind_count; i++) {
       if (weights_prefix.at(i) > rnd) {
         return static_cast<op_kind>(i);
       }
     }
-    assert(0 && "impossible to get random out of bound");
+    return op_kind::Rnd;
   };
   std::vector<int8_t> buffer = {static_cast<int8_t>(op_kind::Tripple)};
   int balance = 3;
   int values_count = 0;
+  int iteration = 0;
   while (true) {
+    iteration += 1;
     if (balance == 0) {
       break;
     }
-    op_kind kind = take_random_kind();
-    std::cout << op_kind_name(kind) << " ";
+    op_kind kind = take_random_kind(iteration);
     auto is_expr = op_kind_is_expr(kind);
     balance = balance + is_expr;
     values_count += is_expr == -1;
@@ -194,8 +195,10 @@ auto main() -> int {
   constexpr auto dimx = 1000u, dimy = 1000u;
 
   {
+    std::vector<char> b(dimx * dimy * 3, 0);
     std::ofstream ofs("output/tmp.ppm",
                       std::ios_base::out | std::ios_base::binary);
+    ofs.rdbuf()->pubsetbuf(b.data(), b.size());
 
     // ppm file header, reference at
     // https://rosettacode.org/wiki/Bitmap/Write_a_PPM_file#C++
